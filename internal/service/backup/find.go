@@ -8,7 +8,11 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/backup"
+	backupv2 "github.com/aws/aws-sdk-go-v2/service/backup"
 	awstypes "github.com/aws/aws-sdk-go-v2/service/backup/types"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/service/backup"
+	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/aws-sdk-go-base/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs"
@@ -135,4 +139,28 @@ func findFrameworkByName(ctx context.Context, conn *backup.Client, name string) 
 	}
 
 	return output, nil
+}
+
+func FindRestoreTestingPlanByName(ctx context.Context, conn *backupv2.Client, name string) (*backupv2.GetRestoreTestingPlanOutput, error) {
+	in := &backupv2.GetRestoreTestingPlanInput{
+		RestoreTestingPlanName: aws.String(name),
+	}
+
+	out, err := conn.GetRestoreTestingPlan(ctx, in)
+	if err != nil {
+		if errs.IsA[*awstypes.ResourceNotFoundException](err) {
+			return nil, &retry.NotFoundError{
+				LastError:   err,
+				LastRequest: in,
+			}
+		}
+
+		return nil, err
+	}
+
+	if out == nil || out.RestoreTestingPlan == nil {
+		return nil, tfresource.NewEmptyResultError(in)
+	}
+
+	return out, nil
 }

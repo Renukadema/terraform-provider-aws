@@ -7,4 +7,5 @@ package backup
 var (
 	FindVaultAccessPolicyByName = findVaultAccessPolicyByName
 	FindVaultByName             = findVaultByName
+	RestoreTestingPlanResource  = newResourceRestoreTestingPlan
 )
