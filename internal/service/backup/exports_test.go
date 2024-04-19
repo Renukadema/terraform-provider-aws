@@ -5,7 +5,8 @@ package backup
 
 // Exports for use in tests only.
 var (
-	FindVaultAccessPolicyByName = findVaultAccessPolicyByName
-	FindVaultByName             = findVaultByName
-	RestoreTestingPlanResource  = newResourceRestoreTestingPlan
+	FindVaultAccessPolicyByName     = findVaultAccessPolicyByName
+	FindVaultByName                 = findVaultByName
+	RestoreTestingPlanResource      = newResourceRestoreTestingPlan
+	RestoreTestingSelectionResource = newResourceRestoreTestingSelection
 )

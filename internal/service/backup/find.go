@@ -164,3 +164,28 @@ func FindRestoreTestingPlanByName(ctx context.Context, conn *backupv2.Client, na
 
 	return out, nil
 }
+
+func FindRestoreTestingSelectionByName(ctx context.Context, conn *backupv2.Client, name string, restoreTestingPlanName string) (*backupv2.GetRestoreTestingSelectionOutput, error) {
+	in := &backupv2.GetRestoreTestingSelectionInput{
+		RestoreTestingPlanName:      aws.String(restoreTestingPlanName),
+		RestoreTestingSelectionName: aws.String(name),
+	}
+
+	out, err := conn.GetRestoreTestingSelection(ctx, in)
+	if err != nil {
+		if errs.IsA[*awstypes.ResourceNotFoundException](err) {
+			return nil, &retry.NotFoundError{
+				LastError:   err,
+				LastRequest: in,
+			}
+		}
+
+		return nil, err
+	}
+
+	if out == nil || out.RestoreTestingSelection == nil {
+		return nil, tfresource.NewEmptyResultError(in)
+	}
+
+	return out, nil
+}
