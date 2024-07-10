@@ -188,7 +188,7 @@ func (r *restoreTestingPlanResource) Create(ctx context.Context, req resource.Cr
 
 	tags := make(map[string]string)
 	for k, v := range getTagsIn(ctx) {
-		tags[k] = *v
+		tags[k] = v
 	}
 
 	out, err := conn.CreateRestoreTestingPlan(ctx, &backup.CreateRestoreTestingPlanInput{
@@ -263,7 +263,7 @@ func (r *restoreTestingPlanResource) Read(ctx context.Context, req resource.Read
 
 	if ok := out.ResultMetadata.Has("Tags"); ok {
 		v := out.ResultMetadata.Get("Tags")
-		setTagsOut(ctx, v.(map[string]*string))
+		setTagsOut(ctx, v.(map[string]string))
 	}
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
