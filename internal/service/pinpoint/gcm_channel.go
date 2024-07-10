@@ -12,10 +12,23 @@ import (
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
+
+const (
+	defaultAuthenticationMethodKey   = "KEY"
+	defaultAuthenticationMethodToken = "TOKEN"
+)
+
+func defaultAuthenticationMethod_Values() []string {
+	return []string{
+		defaultAuthenticationMethodKey,
+		defaultAuthenticationMethodToken,
+	}
+}
 
 // @SDKResource("aws_pinpoint_gcm_channel")
 func ResourceGCMChannel() *schema.Resource {
@@ -35,9 +48,10 @@ func ResourceGCMChannel() *schema.Resource {
 				ForceNew: true,
 			},
 			"default_authentication_method": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "KEY",
+				Type:             schema.TypeString,
+				Optional:         true,
+				Default:          defaultAuthenticationMethodKey,
+				ValidateDiagFunc: validation.ToDiagFunc(validation.StringInSlice(defaultAuthenticationMethod_Values(), false)),
 			},
 			"api_key": {
 				Type:         schema.TypeString,
@@ -70,10 +84,10 @@ func resourceGCMChannelUpsert(ctx context.Context, d *schema.ResourceData, meta 
 
 	params.DefaultAuthenticationMethod = aws.String(d.Get("default_authentication_method").(string))
 	params.Enabled = aws.Bool(d.Get(names.AttrEnabled).(bool))
-	if d.Get("default_authentication_method") == "KEY" {
+	if d.Get("default_authentication_method") == defaultAuthenticationMethodKey {
 		params.ApiKey = aws.String(d.Get("api_key").(string))
 	}
-	if d.Get("default_authentication_method") == "TOKEN" {
+	if d.Get("default_authentication_method") == defaultAuthenticationMethodToken {
 		params.ServiceJson = aws.String(d.Get("service_json").(string))
 	}
 
