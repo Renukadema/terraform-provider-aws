@@ -217,6 +217,11 @@ func resourcePipeline() *schema.Resource {
 								validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z_.@-]+`), ""),
 							),
 						},
+						"on_failure": {
+							Type:             schema.TypeString,
+							Optional:         true,
+							ValidateDiagFunc: enum.Validate[types.Result](),
+						},
 					},
 				},
 			},
@@ -795,6 +800,12 @@ func expandStageDeclaration(tfMap map[string]interface{}) *types.StageDeclaratio
 		apiObject.Name = aws.String(v)
 	}
 
+	if v, ok := tfMap["on_failure"].(string); ok && v != "" {
+		apiObject.OnFailure = &types.FailureConditions{
+			Result: types.Result(v),
+		}
+	}
+
 	return apiObject
 }
 
@@ -1280,6 +1291,10 @@ func flattenStageDeclaration(d *schema.ResourceData, i int, apiObject types.Stag
 
 	if v := apiObject.Name; v != nil {
 		tfMap[names.AttrName] = aws.ToString(v)
+	}
+
+	if v := apiObject.OnFailure; v != nil {
+		tfMap["on_failure"] = v.Result
 	}
 
 	return tfMap
