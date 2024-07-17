@@ -74,7 +74,6 @@ func ResourceHostedPrivateVirtualInterface() *schema.Resource {
 			names.AttrConnectionID: {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			"customer_address": {
 				Type:     schema.TypeString,
@@ -96,7 +95,6 @@ func ResourceHostedPrivateVirtualInterface() *schema.Resource {
 			names.AttrName: {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			names.AttrOwnerAccountID: {
 				Type:         schema.TypeString,
