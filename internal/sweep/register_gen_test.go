@@ -115,6 +115,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/service/opsworks"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/pinpoint"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/pipes"
+	"github.com/hashicorp/terraform-provider-aws/internal/service/qbusiness"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/qldb"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 	"github.com/hashicorp/terraform-provider-aws/internal/service/ram"
@@ -275,6 +276,7 @@ func registerSweepers() {
 	opsworks.RegisterSweepers()
 	pinpoint.RegisterSweepers()
 	pipes.RegisterSweepers()
+	qbusiness.RegisterSweepers()
 	qldb.RegisterSweepers()
 	quicksight.RegisterSweepers()
 	ram.RegisterSweepers()
