@@ -6,9 +6,9 @@ package backup
 import (
 	"context"
 
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/backup"
 	awstypes "github.com/aws/aws-sdk-go-v2/service/backup/types"
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/hashicorp/aws-sdk-go-base/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs"
@@ -137,7 +137,7 @@ func findFrameworkByName(ctx context.Context, conn *backup.Client, name string) 
 	return output, nil
 }
 
-func FindRestoreTestingPlanByName(ctx context.Context, conn *backup.Client, name string) (*backup.GetRestoreTestingPlanOutput, error) {
+func findRestoreTestingPlanByName(ctx context.Context, conn *backup.Client, name string) (*backup.GetRestoreTestingPlanOutput, error) {
 	in := &backup.GetRestoreTestingPlanInput{
 		RestoreTestingPlanName: aws.String(name),
 	}

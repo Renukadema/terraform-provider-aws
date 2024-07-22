@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/YakDriver/regexache"
+	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/backup"
 	awstypes "github.com/aws/aws-sdk-go-v2/service/backup/types"
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/hashicorp/terraform-plugin-framework-timeouts/resource/timeouts"
 	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
 	"github.com/hashicorp/terraform-plugin-framework-validators/listvalidator"
@@ -240,7 +240,7 @@ func (r *restoreTestingPlanResource) Read(ctx context.Context, req resource.Read
 		return
 	}
 
-	out, err := FindRestoreTestingPlanByName(ctx, conn, state.RestoreTestingPlanName.ValueString())
+	out, err := findRestoreTestingPlanByName(ctx, conn, state.RestoreTestingPlanName.ValueString())
 
 	if tfresource.NotFound(err) {
 		resp.State.RemoveResource(ctx)
@@ -421,7 +421,7 @@ func waitRestoreTestingPlanLatest(ctx context.Context, conn *backup.Client, name
 
 func statusRestorePlan(ctx context.Context, conn *backup.Client, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindRestoreTestingPlanByName(ctx, conn, name)
+		output, err := findRestoreTestingPlanByName(ctx, conn, name)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
