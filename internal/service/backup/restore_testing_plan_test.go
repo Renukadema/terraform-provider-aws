@@ -143,7 +143,7 @@ func TestAccBackupRestoreTestingPlan_tags(t *testing.T) {
 	})
 }
 
-func TestAccBackupRestoreTestingPlan_includevaults(t *testing.T) {
+func TestAccBackupRestoreTestingPlan_includeVaults(t *testing.T) {
 	ctx := acctest.Context(t)
 	var restoretestingplan backup.GetRestoreTestingPlanOutput
 	resourceName := "aws_backup_restore_testing_plan.test"
@@ -158,7 +158,7 @@ func TestAccBackupRestoreTestingPlan_includevaults(t *testing.T) {
 		CheckDestroy:             testAccCheckRestoreTestingPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccRestoreTestingPlanConfig_includevaults(rName),
+				Config: testAccRestoreTestingPlanConfig_includeVaults(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRestoreTestingPlanExists(ctx, resourceName, &restoretestingplan),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -182,7 +182,7 @@ func TestAccBackupRestoreTestingPlan_includevaults(t *testing.T) {
 	})
 }
 
-func TestAccBackupRestoreTestingPlan_excludevaults(t *testing.T) {
+func TestAccBackupRestoreTestingPlan_excludeVaults(t *testing.T) {
 	ctx := acctest.Context(t)
 	var restoretestingplan backup.GetRestoreTestingPlanOutput
 	resourceName := "aws_backup_restore_testing_plan.test"
@@ -197,7 +197,7 @@ func TestAccBackupRestoreTestingPlan_excludevaults(t *testing.T) {
 		CheckDestroy:             testAccCheckRestoreTestingPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccRestoreTestingPlanConfig_excludevaults(rName),
+				Config: testAccRestoreTestingPlanConfig_excludeVaults(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRestoreTestingPlanExists(ctx, resourceName, &restoretestingplan),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -458,7 +458,7 @@ func testAccRestoreTestingPlanConfig_additionals(selectionWindowDays, scheduleEx
 `, selectionWindowDays, scheduleExpression, rName)
 }
 
-func testAccRestoreTestingPlanConfig_includevaults(rName string) string {
+func testAccRestoreTestingPlanConfig_includeVaults(rName string) string {
 	return acctest.ConfigCompose(
 		testAccRestoreTestingPlanConfig_base(rName),
 		fmt.Sprintf(`
@@ -477,7 +477,7 @@ func testAccRestoreTestingPlanConfig_includevaults(rName string) string {
 	)
 }
 
-func testAccRestoreTestingPlanConfig_excludevaults(rName string) string {
+func testAccRestoreTestingPlanConfig_excludeVaults(rName string) string {
 	return acctest.ConfigCompose(
 		testAccRestoreTestingPlanConfig_base(rName),
 		fmt.Sprintf(`
