@@ -61,7 +61,6 @@ func (r *restoreTestingPlanResource) Metadata(_ context.Context, req resource.Me
 	resp.TypeName = "aws_backup_restore_testing_plan"
 }
 
-// ==== SCHEMA ==== //
 func (r *restoreTestingPlanResource) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -383,13 +382,11 @@ func (r *restoreTestingPlanResource) ImportState(ctx context.Context, req resour
 	resp.Diagnostics.Append(resp.State.SetAttribute(ctx, path.Root(names.AttrName), req.ID)...)
 }
 
-// ==== STATE REFRESH ==== //
 const (
 	stateNormal   = "NORMAL"
 	stateNotFound = "NOT_FOUND"
 )
 
-// ==== FUNCTIONS ==== //
 func waitRestoreTestingPlanDeleted(ctx context.Context, conn *backup.Client, name string, timeout time.Duration) (*backup.GetRestoreTestingPlanOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{stateNormal},
@@ -404,7 +401,6 @@ func waitRestoreTestingPlanDeleted(ctx context.Context, conn *backup.Client, nam
 	}
 
 	return nil, err
-
 }
 
 func waitRestoreTestingPlanLatest(ctx context.Context, conn *backup.Client, name string, timeout time.Duration) (*backup.GetRestoreTestingPlanOutput, error) {
@@ -421,7 +417,6 @@ func waitRestoreTestingPlanLatest(ctx context.Context, conn *backup.Client, name
 	}
 
 	return nil, err
-
 }
 
 func statusRestorePlan(ctx context.Context, conn *backup.Client, name string) retry.StateRefreshFunc {
@@ -439,7 +434,6 @@ func statusRestorePlan(ctx context.Context, conn *backup.Client, name string) re
 	}
 }
 
-// ==== DATA STRUCTURES ==== //
 type restoreTestingPlanResourceModel struct {
 	RestoreTestingPlanArn      types.String                                                        `tfsdk:"arn"`
 	RestoreTestingPlanName     types.String                                                        `tfsdk:"name"`

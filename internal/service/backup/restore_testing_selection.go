@@ -62,7 +62,6 @@ func (r *resourceRestoreTestingSelection) Metadata(_ context.Context, req resour
 	resp.TypeName = "aws_backup_restore_testing_selection"
 }
 
-// ==== SCHEMA ==== //
 func (r *resourceRestoreTestingSelection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -398,7 +397,6 @@ func statusRestoreSelection(ctx context.Context, conn *backup.Client, name, rest
 	}
 }
 
-// ==== DATA STRUCTURES ==== //
 type restoreTestingSelectionResourceModel struct {
 	RestoreTestingSelectionName types.String                                            `tfsdk:"name"`
 	RestoreTestingPlanName      types.String                                            `tfsdk:"restore_testing_plan_name"`

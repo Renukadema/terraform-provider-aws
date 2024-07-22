@@ -23,7 +23,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// ==== ACCEPTANCE TESTS ==== //
 func TestAccBackupRestoreTestingSelection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var restoretestingplan backup.GetRestoreTestingSelectionOutput
@@ -129,7 +128,6 @@ func TestAccBackupRestoreTestingSelection_updates(t *testing.T) {
 	})
 }
 
-// ====== Helper Functions ====== //
 func testAccCheckRestoreTestingPlanSelection(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -181,7 +179,6 @@ func testAccCheckRestoreTestingSelectionExists(ctx context.Context, name string,
 	}
 }
 
-// ====== Terraform Configuration Functions ====== //
 func testAccRestoreTestingSelectionConfig_base(rName string) string {
 	return fmt.Sprintf(`
 	resource "aws_iam_role" "test" {

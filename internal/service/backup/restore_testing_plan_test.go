@@ -24,7 +24,6 @@ import (
 	tfbackup "github.com/hashicorp/terraform-provider-aws/internal/service/backup"
 )
 
-// ==== ACCEPTANCE TESTS ==== //
 func TestAccBackupRestoreTestingPlan_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var restoretestingplan backup.GetRestoreTestingPlanOutput
@@ -114,7 +113,7 @@ func TestAccBackupRestoreTestingPlan_tags(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "recovery_point_selection.0.include_vaults.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "recovery_point_selection.0.recovery_point_types.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "schedule_expression", "cron(0 12 ? * * *)"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"), // has tags
+					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Name", "RestoreTestingPlan"),
 				),
 			},
@@ -136,7 +135,7 @@ func TestAccBackupRestoreTestingPlan_tags(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "recovery_point_selection.0.include_vaults.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "recovery_point_selection.0.recovery_point_types.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "schedule_expression", "cron(0 12 ? * * *)"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"), // has tags
+					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Testing1"),
 				),
 			},
@@ -341,7 +340,6 @@ func TestAccBackupRestoreTestingPlan_additionalwithupdates(t *testing.T) {
 	})
 }
 
-// ====== Helper Functions ====== //
 func testAccCheckRestoreTestingPlanDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -393,7 +391,6 @@ func testAccCheckRestoreTestingPlanExists(ctx context.Context, name string, rest
 	}
 }
 
-// ====== Terraform Configuration Functions ====== //
 func testAccRestoreTestingPlanConfig_base(rName string) string {
 	return fmt.Sprintf(`
 	resource "aws_kms_key" "test" {
