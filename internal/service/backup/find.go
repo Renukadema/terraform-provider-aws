@@ -161,7 +161,7 @@ func findRestoreTestingPlanByName(ctx context.Context, conn *backup.Client, name
 	return out, nil
 }
 
-func FindRestoreTestingSelectionByName(ctx context.Context, conn *backup.Client, name string, restoreTestingPlanName string) (*backup.GetRestoreTestingSelectionOutput, error) {
+func findRestoreTestingSelectionByName(ctx context.Context, conn *backup.Client, name string, restoreTestingPlanName string) (*backup.GetRestoreTestingSelectionOutput, error) {
 	in := &backup.GetRestoreTestingSelectionInput{
 		RestoreTestingPlanName:      aws.String(restoreTestingPlanName),
 		RestoreTestingSelectionName: aws.String(name),

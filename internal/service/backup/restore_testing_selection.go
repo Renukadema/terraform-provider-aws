@@ -207,7 +207,7 @@ func (r *resourceRestoreTestingSelection) Read(ctx context.Context, req resource
 		return
 	}
 
-	out, err := FindRestoreTestingSelectionByName(ctx, conn, state.RestoreTestingSelectionName.ValueString(), state.RestoreTestingPlanName.ValueString())
+	out, err := findRestoreTestingSelectionByName(ctx, conn, state.RestoreTestingSelectionName.ValueString(), state.RestoreTestingPlanName.ValueString())
 
 	if tfresource.NotFound(err) {
 		resp.State.RemoveResource(ctx)
@@ -384,7 +384,7 @@ func waitRestoreTestingSelectionDeleted(ctx context.Context, conn *backup.Client
 
 func statusRestoreSelection(ctx context.Context, conn *backup.Client, name, restoreTestingPlanName string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindRestoreTestingSelectionByName(ctx, conn, name, restoreTestingPlanName)
+		output, err := findRestoreTestingSelectionByName(ctx, conn, name, restoreTestingPlanName)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
 		}
