@@ -18,7 +18,8 @@ func testAccReportDefinitionDataSource_basic(t *testing.T) {
 	resourceName := "aws_cur_report_definition.test"
 	datasourceName := "data.aws_cur_report_definition.test"
 	reportName := sdkacctest.RandomWithPrefix("tf_acc_test")
-	bucketName := fmt.Sprintf("tf-test-bucket-%d", sdkacctest.RandInt())
+	s3BucketName := fmt.Sprintf("tf-test-bucket-%d", sdkacctest.RandInt())
+	s3Prefix := "test"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -27,7 +28,7 @@ func testAccReportDefinitionDataSource_basic(t *testing.T) {
 		CheckDestroy:             testAccCheckReportDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccReportDefinitionDataSourceConfig_basic(reportName, bucketName),
+				Config: testAccReportDefinitionDataSourceConfig_basic(reportName, s3BucketName, s3Prefix),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(datasourceName, "report_name", resourceName, "report_name"),
 					resource.TestCheckResourceAttrPair(datasourceName, "time_unit", resourceName, "time_unit"),
@@ -48,7 +49,8 @@ func testAccReportDefinitionDataSource_additional(t *testing.T) {
 	resourceName := "aws_cur_report_definition.test"
 	datasourceName := "data.aws_cur_report_definition.test"
 	reportName := sdkacctest.RandomWithPrefix("tf_acc_test")
-	bucketName := fmt.Sprintf("tf-test-bucket-%d", sdkacctest.RandInt())
+	s3BucketName := fmt.Sprintf("tf-test-bucket-%d", sdkacctest.RandInt())
+	s3Prefix := "test"
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
@@ -57,7 +59,7 @@ func testAccReportDefinitionDataSource_additional(t *testing.T) {
 		CheckDestroy:             testAccCheckReportDefinitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccReportDefinitionDataSourceConfig_additional(reportName, bucketName),
+				Config: testAccReportDefinitionDataSourceConfig_additional(reportName, s3BucketName, s3Prefix),
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttrPair(datasourceName, "report_name", resourceName, "report_name"),
 					resource.TestCheckResourceAttrPair(datasourceName, "time_unit", resourceName, "time_unit"),
@@ -75,7 +77,7 @@ func testAccReportDefinitionDataSource_additional(t *testing.T) {
 	})
 }
 
-func testAccReportDefinitionDataSourceConfig_basic(reportName string, bucketName string) string {
+func testAccReportDefinitionDataSourceConfig_basic(reportName, s3BucketName, s3Prefix string) string {
 	return fmt.Sprintf(`
 data "aws_billing_service_account" "test" {}
 
@@ -129,7 +131,7 @@ resource "aws_cur_report_definition" "test" {
   compression                = "GZIP"
   additional_schema_elements = ["RESOURCES", "SPLIT_COST_ALLOCATION_DATA"]
   s3_bucket                  = aws_s3_bucket.test.id
-  s3_prefix                  = ""
+  s3_prefix                  = %[3]q
   s3_region                  = aws_s3_bucket.test.region
   additional_artifacts       = ["REDSHIFT", "QUICKSIGHT"]
 }
@@ -137,10 +139,10 @@ resource "aws_cur_report_definition" "test" {
 data "aws_cur_report_definition" "test" {
   report_name = aws_cur_report_definition.test.report_name
 }
-`, reportName, bucketName)
+`, reportName, s3BucketName, s3Prefix)
 }
 
-func testAccReportDefinitionDataSourceConfig_additional(reportName string, bucketName string) string {
+func testAccReportDefinitionDataSourceConfig_additional(reportName, s3BucketName, s3Prefix string) string {
 	return fmt.Sprintf(`
 data "aws_billing_service_account" "test" {}
 
@@ -194,7 +196,7 @@ resource "aws_cur_report_definition" "test" {
   compression                = "GZIP"
   additional_schema_elements = ["RESOURCES", "SPLIT_COST_ALLOCATION_DATA"]
   s3_bucket                  = aws_s3_bucket.test.id
-  s3_prefix                  = ""
+  s3_prefix                  = %[3]q
   s3_region                  = aws_s3_bucket.test.region
   additional_artifacts       = ["REDSHIFT", "QUICKSIGHT"]
   refresh_closed_reports     = true
@@ -204,5 +206,5 @@ resource "aws_cur_report_definition" "test" {
 data "aws_cur_report_definition" "test" {
   report_name = aws_cur_report_definition.test.report_name
 }
-`, reportName, bucketName)
+`, reportName, s3BucketName, s3Prefix)
 }
