@@ -119,7 +119,9 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/elasticbeanstalk v1.26.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancing v1.26.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/elasticloadbalancingv2 v1.33.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/elastictranscoder v1.25.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/emr v1.42.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/emrcontainers v1.30.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/emrserverless v1.23.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/eventbridge v1.33.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/evidently v1.21.3 // indirect
@@ -127,8 +129,10 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/firehose v1.32.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/fis v1.26.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/fms v1.35.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/fsx v1.47.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/glacier v1.24.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/globalaccelerator v1.27.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/glue v1.91.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/grafana v1.24.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/greengrass v1.25.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/groundstation v1.29.3 // indirect
@@ -136,6 +140,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/healthlake v1.26.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/iam v1.34.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/identitystore v1.25.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/inspector v1.23.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/inspector2 v1.28.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.11.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.3.17 // indirect
@@ -146,6 +151,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/iot v1.55.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/iotanalytics v1.24.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/iotevents v1.25.3 // indirect
+	github.com/aws/aws-sdk-go-v2/service/ivs v1.37.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ivschat v1.14.4 // indirect
 	github.com/aws/aws-sdk-go-v2/service/kafka v1.35.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/kafkaconnect v1.19.3 // indirect
@@ -269,7 +275,7 @@ require (
 	github.com/hashicorp/logutils v1.0.0 // indirect
 	github.com/hashicorp/terraform-exec v0.21.0 // indirect
 	github.com/hashicorp/terraform-json v0.22.1 // indirect
-	github.com/hashicorp/terraform-plugin-framework v1.10.0 // indirect
+	github.com/hashicorp/terraform-plugin-framework v1.11.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-jsontypes v0.1.0 // indirect
 	github.com/hashicorp/terraform-plugin-framework-timeouts v0.4.1 // indirect
 	github.com/hashicorp/terraform-plugin-framework-timetypes v0.4.0 // indirect
